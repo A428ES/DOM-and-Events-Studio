@@ -1,4 +1,9 @@
 window.addEventListener("DOMContentLoaded", function(event){
+	let lr = 50;
+	let rocketEl = document.getElementById("rocket");
+	let pxMove = 37;
+	let topbottom = 0;
+	
     let takeOffButton = document.getElementById("takeoff");
     let flightStat = document.getElementById("flightStatus");
     let consoleBackground = document.getElementById("shuttleBackground");
@@ -8,59 +13,48 @@ window.addEventListener("DOMContentLoaded", function(event){
 
     let leftButton = document.getElementById("left");
     let rightButton = document.getElementById("right");
-    let topButton= document.getElementById("top");
-    let bottomButton = document.getElementById("bottom");
+	let topButton = document.getElementById("top");
+	let bottomButton = document.getElementById("bottom");
 
-    const moveRocket = (direction = 'none') => {
-        let rocketEl = document.getElementById("rocket");
 
-        if(direction === 'none'){
-            rocketEl.style.top = "240px";
-            rocketEl.style.right = "0px";
-        } else {
-    
-        let xPosition = rocketEl.style.top.replace('px', '');
-        let yPosition = rocketEl.style.right.replace('px', '');
-        let finalCord = '';
-    
-        if(direction === 'left'){
-            finalCord = Number(yPosition) - 10;
-        } else if(direction === 'right'){
-            finalCord = Number(yPosition) + 10;
-        } else if(direction === 'top'){
-            shuttleHeight.innerHTML = Number(shuttleHeight.innerHTML) + 10000;
-            finalCord = Number(xPosition) - 10;
-        } else if(direction === 'bottom'){
-            shuttleHeight.innerHTML = Number(shuttleHeight.innerHTML) - 10000;
-            finalCord = Number(xPosition) + 10;
-        }
-    
-        if(Math.abs(finalCord) <= 240){
-            if(direction === "left" || direction === "right"){
-                rocketEl.style.right = finalCord + "px";
-            } else {
-                if(finalCord >= 0){
-                    rocketEl.style.top = finalCord + "px";
-                }
-            }
-        }
-    
-            
-        console.log(finalCord);
-        }
-    }
+    leftButton.addEventListener("click", event => {
+		lr = ((lr + 5) <= 100) ? lr + 5 : 0;
+		
+		rocketEl.style.right = `calc(${lr}% - ${pxMove}px)`;
+	});
+	
+    rightButton.addEventListener("click", event => {
+		lr = ((lr - 5) >= 0) ? lr - 5 : 100;
 
-    leftButton.addEventListener("click", event => moveRocket('left'));
-    rightButton.addEventListener("click", event => moveRocket('right'));
-    topButton.addEventListener("click", event => moveRocket('top'));
-    bottomButton.addEventListener("click", event => moveRocket('bottom'));
+		rocketEl.style.right = `calc(${lr}% - ${pxMove}px)`;
+	});
+	
+	
+	topButton.addEventListener("click", event => {
+		topbottom = ((topbottom + 10) <= 320-75) ? topbottom  += 10 : topbottom;
+		
+		rocketEl.style.bottom = `${topbottom}px`;
+		shuttleHeight.innerHTML = topbottom * 1000;
+		console.log(rocketEl.style.bottom);
+	});
+	
+	
+	bottomButton.addEventListener("click", event => {
+		topbottom = ((topbottom - 10) >= 0) ? topbottom  -= 10 : topbottom;
+		
+		rocketEl.style.bottom = `${topbottom}px`;
+		shuttleHeight.innerHTML = topbottom * 1000;
+		console.log(rocketEl.style.bottom);
+	});
+
+
 
     takeOffButton.addEventListener("click", event => {    
         let confirmLiftOff = confirm("Confirm that the shuttle is ready for takeoff.")
 
         if(confirmLiftOff){
             flightStat.innerHTML = "Shuttle in flight.";
-            consoleBackground.style = "background-color: blue";
+            consoleBackground.style.backgroundColor = "blue";
             shuttleHeight.innerHTML = Number(shuttleHeight.innerHTML) + 10000;
         }
     });
@@ -69,9 +63,8 @@ window.addEventListener("DOMContentLoaded", function(event){
         alert("The shuttle is landing. Landing gear engaged.");
         flightStat.innerHTML = "The shuttle has landed.";
         shuttleHeight.innerHTML = 0;
-        consoleBackground.style = "background-color: green";
 
-        moveRocket();
+		landShuttle();
     });
 
     abortButton.addEventListener("click", event => {
@@ -79,14 +72,20 @@ window.addEventListener("DOMContentLoaded", function(event){
         
         if(confirmMissionAbort){
             flightStat.innerHTML = "Mission aborted.";
-            consoleBackground.style = "background-color: green";
-            shuttleHeight = 0;
-
-            moveRocket();
+   
+           landShuttle();
         }
     });
 
-    
+    function landShuttle(){
+		rocketEl.style.bottom = "0px";
+		rocketEl.style.right = "calc(50% - 37px)";
+		consoleBackground.style.backgroundColor = "green";
+		
+		shuttleHeight.innerHTML = 0;
+		lr = 37;
+		topbottom = 0;
+	}
 
     
 });
