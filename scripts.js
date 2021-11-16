@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", function(event){
 	let lr = 50;
-	let pxMove = 37;
+	let pxMove = 0
 	let topbottom = 0;
 	
 	let rocketEl = document.getElementById("rocket");
