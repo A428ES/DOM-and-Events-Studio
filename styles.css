@@ -7,7 +7,7 @@
 }
 
 #rocket{
-	right: calc(50%);
+	right: calc(50% - 37px);
 	bottom: 0px;
 	position: absolute;
 }
