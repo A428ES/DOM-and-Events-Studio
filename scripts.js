@@ -1,16 +1,15 @@
 window.addEventListener("DOMContentLoaded", function(event){
 	let lr = 50;
-	let rocketEl = document.getElementById("rocket");
 	let pxMove = 37;
 	let topbottom = 0;
 	
-    let takeOffButton = document.getElementById("takeoff");
-    let flightStat = document.getElementById("flightStatus");
-    let consoleBackground = document.getElementById("shuttleBackground");
-    let shuttleHeight = document.getElementById("spaceShuttleHeight");
-    let landButton = document.getElementById("landing");
-    let abortButton = document.getElementById("missionAbort");
-
+	let rocketEl = document.getElementById("rocket");
+	let takeOffButton = document.getElementById("takeoff");
+	let flightStat = document.getElementById("flightStatus");
+	let consoleBackground = document.getElementById("shuttleBackground");
+	let shuttleHeight = document.getElementById("spaceShuttleHeight");
+	let landButton = document.getElementById("landing");
+	let abortButton = document.getElementById("missionAbort");
     let leftButton = document.getElementById("left");
     let rightButton = document.getElementById("right");
 	let topButton = document.getElementById("top");
@@ -35,19 +34,14 @@ window.addEventListener("DOMContentLoaded", function(event){
 		
 		rocketEl.style.bottom = `${topbottom}px`;
 		shuttleHeight.innerHTML = topbottom * 1000;
-		console.log(rocketEl.style.bottom);
 	});
-	
 	
 	bottomButton.addEventListener("click", event => {
 		topbottom = ((topbottom - 10) >= 0) ? topbottom  -= 10 : topbottom;
 		
 		rocketEl.style.bottom = `${topbottom}px`;
 		shuttleHeight.innerHTML = topbottom * 1000;
-		console.log(rocketEl.style.bottom);
 	});
-
-
 
     takeOffButton.addEventListener("click", event => {    
         let confirmLiftOff = confirm("Confirm that the shuttle is ready for takeoff.")
@@ -82,10 +76,8 @@ window.addEventListener("DOMContentLoaded", function(event){
 		rocketEl.style.right = "calc(50% - 37px)";
 		consoleBackground.style.backgroundColor = "green";
 		
-		shuttleHeight.innerHTML = 0;
 		lr = 37;
+		shuttleHeight.innerHTML = 0;
 		topbottom = 0;
-	}
-
-    
+	}    
 });
