@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", function(event){
 	let lr = 50;
 	let pxMove = 0
-	let topbottom = 0;
+	let topbottom = 37;
 	
 	let rocketEl = document.getElementById("rocket");
 	let takeOffButton = document.getElementById("takeoff");
